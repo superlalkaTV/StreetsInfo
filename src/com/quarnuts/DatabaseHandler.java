@@ -17,7 +17,7 @@ public class DatabaseHandler extends Configs{
 
 
     public void record(Integer oblId, Integer regionId, Integer cityId, Integer cityRegionId, Integer streetId) {
-        String insert = "INSERT INTO records (" + Const.RECORD_OBL_ID + "," + Const.RECORD_REGION_ID + "," + Const.RECORD_CITY_ID +
+        String insert = "INSERT INTO " + Const.RECORD_TABLE + " (" + Const.RECORD_OBL_ID + "," + Const.RECORD_REGION_ID + "," + Const.RECORD_CITY_ID +
                 "," + Const.RECORD_CITY_REGION_ID + "," + Const.RECORD_STREET_ID + ") VALUES(?,?,?,?,?)";
         try{
 

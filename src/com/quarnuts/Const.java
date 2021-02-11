@@ -1,16 +1,16 @@
 package com.quarnuts;
 
 public class Const {
-    public static final String CITY_REGION_TABLE = "city_regions";
-    public static final String CITY_REGIONS_ID = "city_region";
+    public static final String CITY_REGION_TABLE = "cityregions";
+    public static final String CITY_REGIONS_ID = "cityregion";
     public static final String CITY_REGIONS_VALUE = "name";
 
-    public static final String CITY_TABLE = "citys";
+    public static final String CITY_TABLE = "cities";
     public static final String CITYS_ID = "city";
     public static final String CITYS_VALUE = "name";
 
-    public static final String OBL_TABLE = "obls";
-    public static final String OBL_ID = "obl";
+    public static final String OBL_TABLE = "districts";
+    public static final String OBL_ID = "district";
     public static final String OBL_VALUE = "name";
 
     public static final String REGION_TABLE = "regions";
@@ -26,9 +26,9 @@ public class Const {
 
     public static final String RECORD_TABLE = "records";
     public static final String RECORD_ID = "record";
-    public static final String RECORD_OBL_ID = "obl";
-    public static final String RECORD_REGION_ID = "region";
-    public static final String RECORD_CITY_ID = "city";
-    public static final String RECORD_CITY_REGION_ID = "city_region";
-    public static final String RECORD_STREET_ID = "street";
+    public static final String RECORD_OBL_ID = "districtId";
+    public static final String RECORD_REGION_ID = "regionId";
+    public static final String RECORD_CITY_ID = "cityId";
+    public static final String RECORD_CITY_REGION_ID = "cityRegionId";
+    public static final String RECORD_STREET_ID = "streetId";
 }
