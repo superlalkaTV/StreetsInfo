@@ -8,6 +8,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 
 public class XMLParser {
+    private static int COUNTER = 0;
 
     public static void parse(String file) {
 
@@ -77,6 +78,7 @@ public class XMLParser {
                         //запрос к record
                         if(oblId!=null||regionId!=null||cityId!=null||cityRegionId!=null||streetId!=null){
                             databaseHandler.record(oblId, regionId, cityId, cityRegionId, streetId);
+                            System.out.println("Отправлен запрос RECORD " + ++COUNTER);
                         }
 
                         oblId = null;

@@ -92,8 +92,5 @@ public class DatabaseHandler extends Configs{
             e.printStackTrace();
         }
     }
-
-
-
 }
 
