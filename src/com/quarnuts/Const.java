@@ -5,6 +5,7 @@ public class Const {
     public static final String FOLDER_NAME = "C:\\Streets Info";
     public static final String DOWNLOAD_LINK = "https://data.gov.ua/dataset/75e57837-128b-49e1-a007-5e7dfa7bf6af/resource/e21a1e57-051c-46ea-9c8e-8f30de7d863d/download/28-ex_xml_atu.zip";
     public static final String ZIP_NAME = "info.zip";
+    public static final String CONFIG_NAME = "config.txt";
 
 
     public static final String CITY_REGION_TABLE = "cityregions";

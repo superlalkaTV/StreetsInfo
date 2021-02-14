@@ -10,6 +10,15 @@ import javax.xml.parsers.SAXParserFactory;
 public class XMLParser {
     private static int COUNTER = 0;
 
+
+    /*public static void recordCounter () {
+        XmlDocument readDoc = new XmlDocument();
+        readDoc.Load(MapPath("Results.xml"));
+        int count = readDoc.SelectNodes("root/User").Count;
+        lblResults.Text = count.ToString();
+        int NoCount = readDoc.SelectNodes("JSEnabled[. = \"No\"]").Count;
+    }*/
+
     public static void parse(String file) {
 
         DatabaseHandler databaseHandler = new DatabaseHandler();
@@ -77,8 +86,10 @@ public class XMLParser {
                     if (qName.equalsIgnoreCase("RECORD")){
                         //запрос к record
                         if(oblId!=null||regionId!=null||cityId!=null||cityRegionId!=null||streetId!=null){
-                            databaseHandler.record(oblId, regionId, cityId, cityRegionId, streetId);
-                            System.out.println("Отправлен запрос RECORD " + ++COUNTER);
+                            if(databaseHandler.checkRecord(oblId, regionId, cityId, cityRegionId, streetId)){
+                                databaseHandler.record(oblId, regionId, cityId, cityRegionId, streetId);
+                                System.out.println("Отправлен запрос RECORD " + ++COUNTER);
+                            }
                         }
 
                         oblId = null;
@@ -96,47 +107,48 @@ public class XMLParser {
                     if (obl) {
                         String oblName = new String(ch, start, length);
                         if (oblName.trim().length()>0) {
-                            if (databaseHandler.check(Const.OBL_TABLE, oblName)) {
+                            if (databaseHandler.check(Const.OBL_TABLE, oblName, Const.OBL_ID)) {
                                 databaseHandler.insert(Const.OBL_TABLE, Const.OBL_VALUE, oblName);
                             }
                         }
-                        oblId = databaseHandler.searchId(Const.OBL_TABLE, oblName);
+
+                        oblId = databaseHandler.searchId(Const.OBL_TABLE, oblName, Const.OBL_ID);
                     }
                     if (region) {
                         String regionName = new String(ch, start, length);
                         if (regionName.trim().length()>0) {
-                            if (databaseHandler.check(Const.REGION_TABLE, regionName)) {
+                            if (databaseHandler.check(Const.REGION_TABLE, regionName, Const.REGION_ID)) {
                                 databaseHandler.insert(Const.REGION_TABLE, Const.REGION_VALUE, regionName);
                             }
                         }
-                        regionId = databaseHandler.searchId(Const.REGION_TABLE, regionName);
+                        regionId = databaseHandler.searchId(Const.REGION_TABLE, regionName, Const.REGION_ID);
                     }
                     if (city) {
                         String cityName = new String(ch, start, length);
                         if (cityName.trim().length()>0) {
-                            if (databaseHandler.check(Const.CITY_TABLE, cityName)) {
+                            if (databaseHandler.check(Const.CITY_TABLE, cityName, Const.CITYS_ID)) {
                                 databaseHandler.insert(Const.CITY_TABLE, Const.CITYS_VALUE, cityName);
                             }
                         }
-                        cityId = databaseHandler.searchId(Const.CITY_TABLE, cityName);
+                        cityId = databaseHandler.searchId(Const.CITY_TABLE, cityName, Const.CITYS_ID);
                     }
                     if (city_region) {
                         String cityRegionName = new String(ch, start, length);
                         if (cityRegionName.trim().length()>0) {
-                            if (databaseHandler.check(Const.CITY_REGION_TABLE, cityRegionName)) {
+                            if (databaseHandler.check(Const.CITY_REGION_TABLE, cityRegionName, Const.CITY_REGIONS_ID)) {
                                 databaseHandler.insert(Const.CITY_REGION_TABLE, Const.CITY_REGIONS_VALUE, cityRegionName);
                             }
                         }
-                        cityRegionId = databaseHandler.searchId(Const.CITY_REGION_TABLE, cityRegionName);
+                        cityRegionId = databaseHandler.searchId(Const.CITY_REGION_TABLE, cityRegionName, Const.CITY_REGIONS_ID);
                     }
                     if (street) {
                         String streetName = new String(ch, start, length);
                         if (streetName.trim().length()>0) {
-                            if (databaseHandler.check(Const.STREET_TABLE, streetName)) {
+                            if (databaseHandler.check(Const.STREET_TABLE, streetName, Const.STREET_ID)) {
                                 databaseHandler.insert(Const.STREET_TABLE, Const.STREET_VALUE, streetName);
                             }
                         }
-                        streetId = databaseHandler.searchId(Const.STREET_TABLE, streetName);
+                        streetId = databaseHandler.searchId(Const.STREET_TABLE, streetName, Const.STREET_ID);
                     }
                 }
             };

@@ -11,6 +11,7 @@ public class FileManipulation {
     public static void createFolder() {
         File folder = new File(Const.FOLDER_NAME);
         folder.mkdir();
+        System.out.println("Создана папка C:\\Streets Info");
     }
 
     public static void downloadZipFile() {
@@ -28,6 +29,7 @@ public class FileManipulation {
             out.flush();
             out.close();
             in.close();
+            System.out.println("Скачан ZIP архив");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,7 +55,7 @@ public class FileManipulation {
             while (ze != null) {
                 nextFileName = ze.getName();
                 File nextFile = new File(Const.FOLDER_NAME + File.separator + nextFileName);
-                System.out.println("Pacпakoвывaem: " + nextFile.getAbsolutePath());
+                System.out.println("Распакован: " + nextFile.getAbsolutePath());
 
                 if (ze.isDirectory()) {
                     nextFile.mkdir();
@@ -80,9 +82,15 @@ public class FileManipulation {
     public static void deleteZipFile() {
         File file  = new File(Const.FOLDER_NAME + "\\" + Const.ZIP_NAME);
         if(file.delete()){
-            System.out.println("файл удален");
+            System.out.println("Удален ZIP архив");
         }else System.out.println("Файла не обнаружено");
     }
 
+    public String readFile(){
+
+
+
+        return null;
+    }
 
 }
