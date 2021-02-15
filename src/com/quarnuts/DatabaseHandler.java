@@ -5,21 +5,27 @@ import java.sql.*;
 public class DatabaseHandler extends Configs {
     Connection dbConnection;
 
-    public Connection getDbConnection() throws ClassNotFoundException, SQLException {
+    public Connection getDbConnection() {
+        try {
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
+            return dbConnection;
+        }
+        catch (Exception e){
+            System.out.println("Error with connecting to database!");
+        }
 
-        return dbConnection;
+        return null;
+
     }
 
     public void record(Integer oblId, Integer regionId, Integer cityId, Integer cityRegionId, Integer streetId) {
         String insert = "INSERT INTO " + Const.RECORD_TABLE + " (" + Const.RECORD_OBL_ID + "," + Const.RECORD_REGION_ID + "," + Const.RECORD_CITY_ID +
                 "," + Const.RECORD_CITY_REGION_ID + "," + Const.RECORD_STREET_ID + ") VALUES(?,?,?,?,?)";
         try {
-
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
             preparedStatement.setObject(1, oblId);
             preparedStatement.setObject(2, regionId);
@@ -31,7 +37,6 @@ public class DatabaseHandler extends Configs {
 
         } catch (Exception e) {
             System.out.println("Ошибка при создании поля record!");
-            e.printStackTrace();
         }
     }
 
