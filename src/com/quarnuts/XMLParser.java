@@ -123,12 +123,11 @@ public class XMLParser {
                         //запрос к record
                         if (oblId != null || regionId != null || cityId != null || cityRegionId != null || streetId != null) {
                             if (databaseHandler.checkRecord(oblId, regionId, cityId, cityRegionId, streetId)) {
-                                databaseHandler.record(oblId, regionId, cityId, cityRegionId, streetId);
-
-
-                                printProgress(startTime,TAGS, COUNTER++);
-//                                System.out.println("Отправлен запрос RECORD " + ++COUNTER);
+                                if(databaseHandler.checkRecord(oblId, regionId, cityId, cityRegionId, streetId)) {
+                                    databaseHandler.record(oblId, regionId, cityId, cityRegionId, streetId);
+                                }
                             }
+                            printProgress(startTime,TAGS, COUNTER++);
                         }
 
                         oblId = null;
