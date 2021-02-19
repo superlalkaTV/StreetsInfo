@@ -2,6 +2,7 @@
   <library name="mysql-connector-java-8.0">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../../mysql-connector-java-8.0.23" />
+      <root url="jar://$PROJECT_DIR$/../../java libraries/gson-2.8.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -3,22 +3,18 @@ package com.quarnuts;
 import java.sql.*;
 
 public class DatabaseHandler extends Configs {
-    Connection dbConnection;
+    static Connection dbConnection;
 
     public Connection getDbConnection() {
         try {
             String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
-
             Class.forName("com.mysql.cj.jdbc.Driver");
-
             dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
             return dbConnection;
         } catch (Exception e) {
             System.out.println("Error with connecting to database!");
         }
-
         return null;
-
     }
 
     public void record(Integer oblId, Integer regionId, Integer cityId, Integer cityRegionId, Integer streetId) {
@@ -59,8 +55,8 @@ public class DatabaseHandler extends Configs {
 
 
             String insert = "SELECT " + Const.RECORD_OBL_ID + "," + Const.RECORD_REGION_ID + "," + Const.RECORD_CITY_ID + "," + Const.RECORD_CITY_REGION_ID + ","
-                    + Const.RECORD_STREET_ID + " FROM " + Const.RECORD_TABLE + " WHERE " + Const.RECORD_OBL_ID + obl + " AND " + Const.RECORD_REGION_ID + region +" AND " + Const.RECORD_CITY_ID
-                    + city +" AND " + Const.RECORD_CITY_REGION_ID + cityRegion +" AND " + Const.RECORD_STREET_ID + street;
+                    + Const.RECORD_STREET_ID + " FROM " + Const.RECORD_TABLE + " WHERE " + Const.RECORD_OBL_ID + obl + " AND " + Const.RECORD_REGION_ID + region + " AND " + Const.RECORD_CITY_ID
+                    + city + " AND " + Const.RECORD_CITY_REGION_ID + cityRegion + " AND " + Const.RECORD_STREET_ID + street;
 
 
             ResultSet resultSet;
@@ -88,16 +84,13 @@ public class DatabaseHandler extends Configs {
             ResultSet resultSet;
             resultSet = preparedStatement.executeQuery();
 
-
             if (resultSet.next()) {
-
                 result = resultSet.getInt(1);
             }
 
         } catch (Exception e) {
             System.out.println("Ошибка в поиске в таблице " + table);
         }
-
         return result;
     }
 
@@ -133,5 +126,42 @@ public class DatabaseHandler extends Configs {
             e.printStackTrace();
         }
     }
+
+    public Integer searchJsonStreets(String search) {
+        String insert = "SELECT " + Const.STREET_ID + " FROM " + Const.STREET_TABLE + " WHERE " + Const.STREET_VALUE + "=(?)";
+        Integer result = null;
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+            preparedStatement.setString(1, search);
+            ResultSet resultSet;
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public void updateJsonStreets(String search, String reestrcode, String codecategory_ukr, String codecategoryRu, String codecategoryLat,
+                                  String streetname_ukr, String streetnameRu, String streetnameLat, String history,
+                                  String kodSts, String docNumber, String docDate) {
+
+        String insert = "UPDATE " + Const.STREET_TABLE + " SET " + Const.STREET_REESTRCODE + "='" + reestrcode + "'," +
+                Const.STREET_CODECATEGORY_UKR + "='" + codecategory_ukr + "'," + Const.STREET_CODECATEGORY_RU + "='" + codecategoryRu + "'," + Const.STREET_CODECATEGORY_LAT + "='" + codecategoryLat + "'," +
+                Const.STREET_STREETNAME_UKR + "='" + streetname_ukr + "'," + Const.STREET_STREETNAME_RU + "='" + streetnameRu + "'," + Const.STREET_STREETNAME_LAT + "='" + streetnameLat + "'," + Const.STREET_HISTORY + "='" + history + "'," + Const.STREET_KOD_STS + "='" + kodSts + "'," +
+                Const.STREET_DOC_NUMBER + "='" + docNumber + "'," + Const.STREET_DOC_DATE + "='" + docDate + "' WHERE " + Const.STREET_VALUE + "='" + search+"'";
+        try {
+            System.out.println(insert);
+            Statement statement = dbConnection.createStatement();
+            statement.executeUpdate(insert);
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 

@@ -48,14 +48,13 @@ public class XMLParser {
         }
     }
 
-    public static void parse(String file) {
+    public static void parse(String file, DatabaseHandler databaseHandler) {
 
-        DatabaseHandler databaseHandler = new DatabaseHandler();
-        try{
-                while(databaseHandler.getDbConnection()==null){
-                    Configs.initConfig();
-                }
-        }catch (Exception e){
+        try {
+            while (databaseHandler.getDbConnection() == null) {
+                Configs.initConfig();
+            }
+        } catch (Exception e) {
 
         }
 
@@ -123,11 +122,11 @@ public class XMLParser {
                         //запрос к record
                         if (oblId != null || regionId != null || cityId != null || cityRegionId != null || streetId != null) {
                             if (databaseHandler.checkRecord(oblId, regionId, cityId, cityRegionId, streetId)) {
-                                if(databaseHandler.checkRecord(oblId, regionId, cityId, cityRegionId, streetId)) {
+                                if (databaseHandler.checkRecord(oblId, regionId, cityId, cityRegionId, streetId)) {
                                     databaseHandler.record(oblId, regionId, cityId, cityRegionId, streetId);
                                 }
                             }
-                            printProgress(startTime,TAGS, COUNTER++);
+                            printProgress(startTime, TAGS, COUNTER++);
                         }
 
                         oblId = null;
@@ -144,7 +143,7 @@ public class XMLParser {
                 public void characters(char ch[], int start, int length) throws SAXException {
                     if (obl) {
                         String oblName = new String(ch, start, length);
-                        if (oblName.trim().length() > 0) {
+                        if (oblName.trim().length() > 2) {
                             if (databaseHandler.check(Const.OBL_TABLE, oblName, Const.OBL_ID)) {
                                 databaseHandler.insert(Const.OBL_TABLE, Const.OBL_VALUE, oblName);
                             }
@@ -154,7 +153,7 @@ public class XMLParser {
                     }
                     if (region) {
                         String regionName = new String(ch, start, length);
-                        if (regionName.trim().length() > 0) {
+                        if (regionName.trim().length() > 2) {
                             if (databaseHandler.check(Const.REGION_TABLE, regionName, Const.REGION_ID)) {
                                 databaseHandler.insert(Const.REGION_TABLE, Const.REGION_VALUE, regionName);
                             }
@@ -163,7 +162,7 @@ public class XMLParser {
                     }
                     if (city) {
                         String cityName = new String(ch, start, length);
-                        if (cityName.trim().length() > 0) {
+                        if (cityName.trim().length() > 2) {
                             if (databaseHandler.check(Const.CITY_TABLE, cityName, Const.CITYS_ID)) {
                                 databaseHandler.insert(Const.CITY_TABLE, Const.CITYS_VALUE, cityName);
                             }
@@ -172,7 +171,7 @@ public class XMLParser {
                     }
                     if (city_region) {
                         String cityRegionName = new String(ch, start, length);
-                        if (cityRegionName.trim().length() > 0) {
+                        if (cityRegionName.trim().length() > 2) {
                             if (databaseHandler.check(Const.CITY_REGION_TABLE, cityRegionName, Const.CITY_REGIONS_ID)) {
                                 databaseHandler.insert(Const.CITY_REGION_TABLE, Const.CITY_REGIONS_VALUE, cityRegionName);
                             }
@@ -181,10 +180,12 @@ public class XMLParser {
                     }
                     if (street) {
                         String streetName = new String(ch, start, length);
-                        if (streetName.trim().length() > 0) {
+                        if (streetName.trim().length() > 3) {
                             if (databaseHandler.check(Const.STREET_TABLE, streetName, Const.STREET_ID)) {
                                 databaseHandler.insert(Const.STREET_TABLE, Const.STREET_VALUE, streetName);
                             }
+
+                            JSONParser.streetsJsonParse(databaseHandler,streetName);
                         }
                         streetId = databaseHandler.searchId(Const.STREET_TABLE, streetName, Const.STREET_ID);
                     }

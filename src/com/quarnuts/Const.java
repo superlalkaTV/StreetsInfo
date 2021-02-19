@@ -27,8 +27,18 @@ public class Const {
     public static final String STREET_TABLE = "streets";
     public static final String STREET_ID = "street";
     public static final String STREET_VALUE = "name";
-    public static final String STREET_NAME_UKR = "name_ukr";
-    public static final String STREET_NAME_RU = "name_ru";
+    public static final String STREET_REESTRCODE = "reestrcode";
+    public static final String STREET_CODECATEGORY_RU = "codecategory_ru";
+    public static final String STREET_CODECATEGORY_UKR = "codecategory_ukr";
+    public static final String STREET_CODECATEGORY_LAT = "codecategory_lat";
+    public static final String STREET_STREETNAME_UKR = "streetname_ukr";
+    public static final String STREET_STREETNAME_RU = "streetname_ru";
+    public static final String STREET_STREETNAME_LAT = "streetname_lat";
+    public static final String STREET_HISTORY = "history";
+    public static final String STREET_KOD_STS = "kod_sts";
+    public static final String STREET_DOC_NUMBER = "doc_number";
+    public static final String STREET_DOC_DATE = "doc_date";
+    public static final String STREET_KOMENT = "koment";
     public static final String STREET_NAME_OLD = "old_name";
 
     public static final String RECORD_TABLE = "records";

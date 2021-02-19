@@ -83,7 +83,7 @@ public class FileManipulation {
         File file  = new File(Const.FOLDER_NAME + "\\" + Const.ZIP_NAME);
         if(file.delete()){
             System.out.println("Удален ZIP архив");
-        }else System.out.println("Файла не обнаружено");
+        }else System.out.println("ZIP Файла не обнаружено");
     }
 
     public String readFile(){
