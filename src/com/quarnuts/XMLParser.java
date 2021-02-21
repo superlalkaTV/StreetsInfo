@@ -184,8 +184,8 @@ public class XMLParser {
                             if (databaseHandler.check(Const.STREET_TABLE, streetName, Const.STREET_ID)) {
                                 databaseHandler.insert(Const.STREET_TABLE, Const.STREET_VALUE, streetName);
                             }
-
-                            JSONParser.streetsJsonParse(databaseHandler,streetName);
+                            JSONParser.streetsJsonParse(databaseHandler, streetName);
+                            JSONParser.addressJsonParse(databaseHandler, streetName);
                         }
                         streetId = databaseHandler.searchId(Const.STREET_TABLE, streetName, Const.STREET_ID);
                     }
